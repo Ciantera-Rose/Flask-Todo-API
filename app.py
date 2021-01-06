@@ -35,6 +35,13 @@ def home():
     return "<h1>Todo Flask API</h1>"
 
 #GET
+@app.route("/todos", methods=["GET"])
+def get_todos():
+    all_todos = Todo.query.all()
+    result = todos_schema.dump(all_todos)
+
+    return jsonify(result)
+
 #POST
 @app.route("/todo", methods=["POST"])
 def add_todo():
