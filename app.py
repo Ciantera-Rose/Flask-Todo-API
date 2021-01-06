@@ -69,6 +69,15 @@ def update_todo(id):
 
 
 #DELETE
+@app.route("/todo/delete/<id>", methods=["DELETE"])
+def delete_todo(id):
+    record = Todo.query.get(id)
+
+    db.session.delete(record)
+    db.session.commit()
+
+    return jsonify({ "message": "Deleted item!"})
+
 
 if __name__ == "__main__":
     app.run(debug=True)    
