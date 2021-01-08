@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, status
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from flask_heroku import Heroku
 from environs import Env
 import os
@@ -9,7 +9,6 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-app.config["CORS_HEADERS"] = "CONTENT-TYPE"
 heroku = Heroku(app)
 
 env = Env()
@@ -83,14 +82,13 @@ def update_todo(id):
 
 #DELETE
 @app.route("/todo/delete/<id>", methods=["DELETE"])
-@cross_origin
 def delete_todo(id):
     record = Todo.query.get(id)
 
     db.session.delete(record)
     db.session.commit()
 
-    return jsonify({ "message": "Deleted item!"})
+    return jsonify({ "message": "Deleted item!"}), status.HTTP_200_OK
 
 
 if __name__ == "__main__":
