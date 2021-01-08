@@ -8,7 +8,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app, allow_headers="Access-Control-Allow-Origin")
+CORS(app)
 heroku = Heroku(app)
 
 env = Env()
@@ -79,7 +79,7 @@ def update_todo(id):
 
 
 #DELETE
-@app.route("/todo/delete/<id>", methods=["DELETE"])
+@app.route("/delete/todo/<id>", methods=["DELETE"])
 def delete_todo(id):
     record = Todo.query.get(id)
 
