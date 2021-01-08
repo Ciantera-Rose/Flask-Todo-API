@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, status
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
@@ -8,7 +8,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, allow_headers="Access-Control-Allow-Origin")
 heroku = Heroku(app)
 
 env = Env()
@@ -86,7 +86,7 @@ def delete_todo(id):
     db.session.delete(record)
     db.session.commit()
 
-    return jsonify({ "message": "Deleted item!"}), status.HTTP_200_OK
+    return jsonify({ "message": "Deleted item!"})
 
 
 if __name__ == "__main__":
